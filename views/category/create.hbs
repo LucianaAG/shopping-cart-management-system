@@ -1,0 +1,18 @@
+{{#if errors}}
+<div class="alert alert-danger">
+    <ul>
+        {{#each errors}}
+            <li>{{msg}}</li>
+        {{/each}}
+    </ul>
+</div>
+{{/if}}
+
+<form method="POST" action="/category/create" id="form_create_category">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre:</label>
+        <input type="text" class="form-control" id="name" name="name">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

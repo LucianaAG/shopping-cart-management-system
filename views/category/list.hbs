@@ -1,0 +1,50 @@
+{{!-- Mensajes flash --}}
+{{#if success_msg}}
+    <div class="alert alert-success" role="alert">
+        <ul>
+            {{#each success_msg}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
+{{#if error_msg}}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            {{#each error_msg}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <td>Acciones</td>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each categories}}
+        <tr>
+            <td>{{category_id}}</td>
+            <td>{{name}}</td>
+            <td>
+                <!-- Botón Modificar -->
+                <a href="/category/edit/{{category_id}}" class="btn btn-primary btn-sm">Modificar</a>
+
+                <!-- Botón Eliminar -->
+                <form action="/category/delete/{{category_id}}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('¿Estás seguro de eliminar la categoría {{name}}?');">
+                        Eliminar
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

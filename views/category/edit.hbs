@@ -1,0 +1,21 @@
+<h2>Editar Categoría</h2>
+
+{{#if errors}}
+<div class="alert alert-danger">
+    <ul>
+        {{#each errors}}
+            <li>{{msg}}</li>
+        {{/each}}
+    </ul>
+</div>
+{{/if}}
+
+<form method="POST" action="/category/edit/{{category.category_id}}" id="form_edit_category">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre:</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{category.name}}" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a href="/category/list" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -1,0 +1,13 @@
+# Dependencias
+- npm // gestor de paquetes de Node.js
+- npm init -y // para inicializar el proyecto (primer comando que hay que lanzar antes de descargar las dependencias)
+- node.js
+- express // libreria de funciones y herramientas listas para manejar rutas, peticiones HTTP y respuestas sin programar desde cero
+- nodemon // reinicia el servidor al detectar cambios en los archivos, evitando reiniciar la app por cada nuevo cambio
+- dotenv // permite cargar y procesar las variables de entorno del archivo .env a través del objeto 'process'
+- handlebars // permite mezclar lógica de programación dentro del HTMl
+- express-validator // se útiliza junto a express para validar los datos de las solicitudes HTTP
+- express-session // gestiona junto con express las sesiones de usuario en el servidor (guarda info del user entre peticiones)
+- connect-flash // permite mostrarle mensajes de exito, error o advertencia al usuario
+- sequelize // es el orm de node.js
+- mysql2 // libreria que envía las consultas a la BD y recibe los resultados
