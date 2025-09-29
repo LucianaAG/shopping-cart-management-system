@@ -11,3 +11,5 @@
 - connect-flash // permite mostrarle mensajes de exito, error o advertencia al usuario
 - sequelize // es el orm de node.js
 - mysql2 // libreria que envía las consultas a la BD y recibe los resultados
+- Jest // ejecuta los tests y genera reportes de cobertura
+- NYC (Istanbul) // mide qué líneas y funciones del proyecto de ejecutan durante los tests

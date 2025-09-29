@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:coverage": "nyc npm test",
     "dev": "nodemon app.js"
   },
   "keywords": [],
@@ -21,6 +22,20 @@
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
-  }
+    "jest": "^30.2.0",
+    "node-mocks-http": "^1.17.2",
+    "nodemon": "^3.1.10",
+    "nyc": "^17.1.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
+  },
+  "nyc": {
+  "all": true,
+  "include": ["controllers/**/*.js", "models/**/*.js"],
+  "exclude": ["tests/**", "node_modules/**"],
+  "reporter": ["text", "html"]
+}
 }
