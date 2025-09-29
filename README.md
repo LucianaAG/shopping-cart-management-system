@@ -13,3 +13,5 @@
 - mysql2 // libreria que envía las consultas a la BD y recibe los resultados
 - Jest // ejecuta los tests y genera reportes de cobertura
 - NYC (Istanbul) // mide qué líneas y funciones del proyecto de ejecutan durante los tests
+- 
+- ![Node.js CI](https://github.com/LucianaAG/shopping-cart-management-system/actions/workflows/ci.yml/badge.svg)
