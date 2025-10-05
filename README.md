@@ -12,7 +12,7 @@
 - sequelize // es el orm de node.js
 - mysql2 // libreria que envía las consultas a la BD y recibe los resultados
 - Jest // ejecuta los tests y genera reportes de cobertura
-- NYC (Istanbul) // mide qué líneas y funciones del proyecto de ejecutan durante los tests
+- NYC (Istanbul) // mide qué líneas y funciones del proyecto de ejecutan durante los test
 - Multer // gestiona la subida de archivos con express
 - Passport // Es un paquete para Node.js que se utiliza para manejar el inicio de sesión de usuarios.
 - Bcrypt // para encriptar las contraseñas antes de guardarlas en la bd
