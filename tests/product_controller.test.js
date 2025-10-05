@@ -6,7 +6,7 @@ const {validationResult} = require('express-validator');
 jest.mock('../models/product.js');
 jest.mock('express-validator');
 
-describe('product_controller', () => { // Agrupa todos los tests relacionados product_controller
+describe('product_controller', () => { // Agrupa todos los tests relacionados a product_controller
     let req, res; // simula el request y response de Express
 
     beforeEach(() => { // se ejecuta antes de cada test para limpiar los mocks anteriores
@@ -36,12 +36,12 @@ describe('product_controller', () => { // Agrupa todos los tests relacionados pr
                 array: () => [{ msg: 'Error' }]
             });
 
-            req.body = { name: '', price: '', stock: '', minimum_stock: '', category: '' };
+            req.body = { name: '', price: '', stock: '', minimum_stock: '', category: '' }; // contiene datos vacios para simular errores
 
-            await product_controller.create_product(req, res); // simula la creación de un product
+            await product_controller.create_product(req, res); // ejecuta el controlador
 
-            expect(res.render).toHaveBeenCalledWith('product/create', expect.objectContaining({ // simula la renderización de la vista
-                errors: [{ msg: 'Error' }],
+            expect(res.render).toHaveBeenCalledWith('product/create', expect.objectContaining({ // simula la renderización de la vista 
+                errors: [{ msg: 'Error' }],                                                     // con los errores de validación
                 product: expect.any(Object)
             }));
         });
@@ -49,11 +49,11 @@ describe('product_controller', () => { // Agrupa todos los tests relacionados pr
         it('Debería crear un producto si los datos son validos', async () => {
             validationResult.mockReturnValue({ isEmpty: () => true }); // simula el resultado de la validación de los datos
 
-            req.body = { name: 'Producto 1', price: 100, stock: 10, minimum_stock: 1, category: 1 };
+            req.body = { name: 'Producto 1', price: 100, stock: 10, minimum_stock: 1, category: 1 }; // simula datos correctos
 
-            await product_controller.create_product(req, res); // simula la creación de un product con los datos de la request
+            await product_controller.create_product(req, res); // ejecuta el controlador
 
-            expect(product.create).toHaveBeenCalledWith(expect.objectContaining({ 
+            expect(product.create).toHaveBeenCalledWith(expect.objectContaining({ // verifica que el producto se cree con los datos correctos
                 name: 'Producto 1',
                 price: 100,
                 stock: 10,
@@ -62,8 +62,8 @@ describe('product_controller', () => { // Agrupa todos los tests relacionados pr
                 image: null
             }));
 
-            expect(req.flash).toHaveBeenCalledWith('success_msg', expect.any(String));
-            expect(res.redirect).toHaveBeenCalledWith('/product/create');
+            expect(req.flash).toHaveBeenCalledWith('success_msg', expect.any(String)); // verifica que se envie un mensaje de exito
+            expect(res.redirect).toHaveBeenCalledWith('/product/create'); // verifica que se redireccione al usuario
         });
     });
 

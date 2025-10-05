@@ -164,3 +164,62 @@ module.exports.delete_product = async (request, response) => {
         response.redirect('/product/list');
     }
 };
+
+
+// ****************** CONTROLADORES JSON ******************
+
+// ------------------ Listar productos JSON ------------------
+
+module.exports.list_products_json = async (req, res) => {
+    try {
+        const products = await product.findAll({ raw: true });
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+module.exports.create_product_json = async (data) => {
+    try {
+        const { name, price, stock, minimum_stock, category } = data;
+
+        // Convertimos category a entero solo si existe, sino lo dejamos null
+        const category_int = category ? parseInt(category) : null;
+
+        // Creamos el producto
+        const newProduct = await product.create({
+            name,
+            price,
+            stock,
+            minimum_stock,
+            category: category_int,
+            image: null // Para JSON no manejamos imagen, o puedes adaptarlo
+        });
+
+        return newProduct; // Devuelve el objeto creado
+    } catch (error) {
+        // Lanzamos el error para que el router lo capture y devuelva 400
+        throw new Error(error.message);
+    }
+};
+
+module.exports.update_product_json = async (req, res) => {
+    try {
+        const product_id = req.params.product_id;
+        const { name, price, stock, minimum_stock, category } = req.body;
+        await product.update({ name, price, stock, minimum_stock, category }, { where: { product_id } });
+        res.status(200).json({ message: 'Producto actualizado' });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+module.exports.delete_product_json = async (req, res) => {
+    try {
+        const product_id = req.params.product_id;
+        await product.destroy({ where: { product_id } });
+        res.status(200).json({ message: 'Producto eliminado' });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};

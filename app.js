@@ -6,6 +6,10 @@ const session = require('express-session'); // importa express-session para mane
 const {create} = require('express-handlebars'); // integra handlebars con express para renderizar HTML con datos del servidor
 const flash = require('connect-flash'); // flash para mostrar mensajes de exito, error o advertencia a los usuarios
 
+// ------------------ Swagger ------------------
+const swaggerUi = require('swagger-ui-express'); // sirve para montar la UI de swagger
+const swaggerSpec = require('./config/swagger'); // importa la especificación generada de swagger
+
 
 // ------------------ Routers ------------------
 const home_controller = require('./controllers/home_controller');
@@ -43,6 +47,9 @@ app.use((request, response, next) =>{
 });
 app.use(express.static(__dirname + '/assets')); // permite acceder a los archivos estáticos
 
+// ------------------ Montar Swagger UI ------------------
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 // ------------------ Rutas ------------------
 app.get('/', home_controller.home); // /
@@ -53,6 +60,9 @@ app.use('/product', product_router) // /product/create, /product/list
 
 // ------------------ Base de Datos ------------------
 const {sequelize_connection, ensure_database} = require('./database/conexion_mysql_db');
+
+const PORT = process.env.PORT || 5000; // Cambiado a puerto 5000 por defecto
+
 (
     async() => {
         try {
@@ -60,10 +70,12 @@ const {sequelize_connection, ensure_database} = require('./database/conexion_mys
             await sequelize_connection.sync();
             console.log('Base de datos y tablas listas');
 
-            app.listen(process.env.PORT, () => {
-                console.log('Servidor corriendo en el puerto: ' + process.env.PORT);
+            // Solo una llamada a listen, después de la inicialización de la BD
+            app.listen(PORT, () => {
+                console.log('Servidor corriendo en el puerto: ' + PORT);
+                console.log(`Swagger docs at http://localhost:${PORT}/api-docs`);
             });
         } catch (error) {
             console.error('Error al inicializar la BD: ', error);
-    }
+        }
 })();
