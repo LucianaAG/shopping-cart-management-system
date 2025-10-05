@@ -18,6 +18,7 @@ module.exports.create_category = async (request, response) => {
         });
     }
 
+    
     try {
         const { name } = request.body;
         await category.create({ name });
@@ -78,7 +79,7 @@ module.exports.update_category = async (request, response) => {
         // Mostrar la vista de edición con errores
         return response.render('category/edit', {
             errors: errors.array(),
-            category: { category_id, name: request.body.name }
+            category: { category_id, name: request.body.name}
         });
     }
 

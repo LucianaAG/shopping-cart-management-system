@@ -2,7 +2,7 @@
 - npm // gestor de paquetes de Node.js
 - npm init -y // para inicializar el proyecto (primer comando que hay que lanzar antes de descargar las dependencias)
 - node.js
-- express // libreria de funciones y herramientas listas para manejar rutas, peticiones HTTP y respuestas sin programar desde cero
+- express // libreria de funciones/herramientas listas para manejar rutas, peticiones HTTP y respuestas sin programar desde cero
 - nodemon // reinicia el servidor al detectar cambios en los archivos, evitando reiniciar la app por cada nuevo cambio
 - dotenv // permite cargar y procesar las variables de entorno del archivo .env a través del objeto 'process'
 - handlebars // permite mezclar lógica de programación dentro del HTMl
@@ -13,3 +13,6 @@
 - mysql2 // libreria que envía las consultas a la BD y recibe los resultados
 - Jest // ejecuta los tests y genera reportes de cobertura
 - NYC (Istanbul) // mide qué líneas y funciones del proyecto de ejecutan durante los tests
+- Multer // gestiona la subida de archivos con express
+- Passport // Es un paquete para Node.js que se utiliza para manejar el inicio de sesión de usuarios.
+- Bcrypt // para encriptar las contraseñas antes de guardarlas en la bd

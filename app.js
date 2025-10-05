@@ -7,9 +7,10 @@ const {create} = require('express-handlebars'); // integra handlebars con expres
 const flash = require('connect-flash'); // flash para mostrar mensajes de exito, error o advertencia a los usuarios
 
 
-// ------------------ Controladores ------------------
+// ------------------ Routers ------------------
 const home_controller = require('./controllers/home_controller');
 const category_router = require('./routes/category_routes');
+const product_router = require('./routes/product_routes');
 
 
 // ------------------ Configuración Handlebars ------------------
@@ -47,6 +48,7 @@ app.use(express.static(__dirname + '/assets')); // permite acceder a los archivo
 app.get('/', home_controller.home); // /
 app.get('/home', home_controller.home); // Nuevo: /home
 app.use('/category', category_router); // /category/create, /category/list
+app.use('/product', product_router) // /product/create, /product/list
 
 
 // ------------------ Base de Datos ------------------

@@ -45,17 +45,17 @@ describe('create_category', () => {
 
 // ------------------ Test caso de error ------------------
 it('Debería generar la vista creada con errores si falla la validación', async () => {
-    const req = mock_request({ name: '' });
-    const res = mock_response();
+    const request = mock_request({ name: '' });
+    const response = mock_response();
 
     validationResult.mockReturnValue({
         isEmpty: () => false,
         array: () => [{ msg: 'el nombre es obligatorio' }]
     });
 
-    await category_controller.create_category(req, res);
+    await category_controller.create_category(request, response);
 
-    expect(res.render).toHaveBeenCalledWith('category/create', {
+    expect(response.render).toHaveBeenCalledWith('category/create', {
         errors: [{ msg: 'el nombre es obligatorio' }],
         category: { name: '' }
     });
