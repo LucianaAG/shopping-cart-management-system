@@ -1,14 +1,14 @@
-# 🛒 Shopping Cart Management System
+# Shopping Cart Management System
 
 Aplicación web completa desarrollada con **Node.js**, **Express** y **MySQL** para la gestión de usuarios, productos, categorías y un robusto sistema de carrito de compras en línea. La interfaz de usuario está desarrollada con **Bootstrap** para un diseño moderno y responsivo.
 
 ---
 
-## 📖 Descripción
+# Descripción
 
 Este sistema tiene como objetivo gestionar un proceso completo de comercio electrónico. Permite a los usuarios registrados (clientes) navegar por un catálogo, agregar productos al carrito, finalizar compras y revisar su historial. También provee herramientas administrativas para gestionar el inventario y las categorías.
 
-### Entidades clave:
+#Entidades clave:
 
 - **User**: Registro y autenticación de clientes.  
 - **Category**: Agrupación de productos.  
@@ -18,7 +18,7 @@ Este sistema tiene como objetivo gestionar un proceso completo de comercio elect
 
 ---
 
-## ⚙️ Funcionalidades Principales
+# Funcionalidades Principales
 
 - **Registro y Autenticación**: Inicio de sesión seguro con Passport y Bcrypt.  
 - **ABMC (CRUD) Completo**: Altas, bajas, modificaciones y consultas sobre Usuarios, Categorías, Productos, Carritos e Ítems del Carrito.  
@@ -31,7 +31,7 @@ Este sistema tiene como objetivo gestionar un proceso completo de comercio elect
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+# Tecnologías Utilizadas
 
 | Categoría          | Tecnología             | Propósito                                             |
 |-------------------|----------------------|------------------------------------------------------|
