@@ -8,7 +8,7 @@ Aplicación web completa desarrollada con **Node.js**, **Express** y **MySQL** p
 
 Este sistema tiene como objetivo gestionar un proceso completo de comercio electrónico. Permite a los usuarios registrados (clientes) navegar por un catálogo, agregar productos al carrito, finalizar compras y revisar su historial. También provee herramientas administrativas para gestionar el inventario y las categorías.
 
-#Entidades clave:
+# Entidades clave:
 
 - **User**: Registro y autenticación de clientes.  
 - **Category**: Agrupación de productos.  
