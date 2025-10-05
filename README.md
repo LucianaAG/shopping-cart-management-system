@@ -38,18 +38,6 @@ Aplicación web completa desarrollada con **Node.js**, **Express** y **MySQL** p
 # Notas de Implementación
 
 - **Endpoints Híbridos**: Algunas rutas devuelven vistas HTML (renderizadas con Handlebars) y otras devuelven JSON para API. Esto permite probar tanto la interacción visual como la integración front-end/back-end en un proyecto de práctica.  
-- **Validaciones**: Se utilizan validaciones con `express-validator` para asegurar que los datos ingresados sean correctos (precio > 0, stock no negativo, campos obligatorios).  
-- **Relaciones de la Base de Datos**:  
-  - `Product` tiene una relación opcional con `Category` (`allowNull: true`).  
-  - Al eliminar una categoría, el producto mantiene la referencia como `NULL` (`onDelete: 'SET NULL'`).  
-- **Gestión de Imágenes**: Las imágenes se suben mediante `multer` y se almacenan en una carpeta local (`/uploads`). Si no se sube imagen, el campo se mantiene como `null`.  
-- **Pruebas**: Se incluyó Jest para pruebas unitarias de los controladores y funcionalidades principales.  
-- **Seguridad y Autenticación**:  
-  - Los passwords se almacenan cifrados con `bcrypt`.  
-  - Las sesiones se manejan con `express-session`.  
-- **Documentación de API**: Toda la API está documentada con Swagger y accesible en `/api-docs`. Esto incluye endpoints de creación, edición, eliminación y listado tanto de productos como de categorías y usuarios.  
-- **Propósito del Proyecto**: Este proyecto es de **práctica y aprendizaje**, ideal para demostrar manejo de Node.js, Express, Sequelize, endpoints híbridos y documentación Swagger. No se recomienda usarlo en producción sin ajustes adicionales de seguridad y escalabilidad.  
-
 
 # Documentación de la API (Swagger)
 
