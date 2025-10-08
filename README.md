@@ -20,7 +20,10 @@ Aplicación web completa desarrollada con **Node.js**, **Express** y **MySQL** p
 - **Validación de Datos**: Uso de express-validator para asegurar la calidad de los datos (precio > 0, stock no negativo).  
 - **Histórico de Compras**: Consulta de carritos confirmados por el usuario.  
 - **Gestión de Archivos**: Subida de imágenes de productos gestionada con Multer.  
-- **Endpoints Híbridos**: Este proyecto utiliza endpoints híbridos, es decir, algunos renderizan vistas HTML y otros devuelven JSON. Esto es intencional porque se trata de un proyecto de práctica y pruebas, ideal para aprender a integrar front-end y back-end.  
+- **Endpoints Híbridos**: Este proyecto utiliza endpoints híbridos, es decir, algunos renderizan vistas HTML y otros devuelven JSON. Esto es intencional porque se trata de un proyecto de práctica y pruebas, ideal para aprender a integrar front-end y back-end.
+- **Seguridad**: bcrypt para encriptar las contraseñas y proteger los datos de los usuarios.
+- **Autenticación y sesiones**: Passport con express-session para manejar sesiones de usuario. 
+  - La configuración actual usa memoria local, pero puede integrarse fácilmente con Redis (u otro) para escalabilidad y alta disponibilidad.
 
 # Tecnologías Utilizadas
 
