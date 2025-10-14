@@ -14,7 +14,7 @@ module.exports.create_category = async (request, response) => {
     if (!errors.isEmpty()) {
         return response.render('category/create', {
             errors: errors.array(),
-            category: {name: request.body.name}
+            category: { name: request.body?.name || '' }
         });
     }
 

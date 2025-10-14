@@ -1,0 +1,63 @@
+{{!-- Mensajes flash --}}
+{{#if success_msg}}
+    <div class="alert alert-success" role="alert">
+        <ul>
+            {{#each success_msg}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
+{{#if error_msg}}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            {{#each error_msg}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <td>Usuario</td>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each carts}}
+        <tr>
+            <td>{{cart_id}}</td>
+            <td>{{date}}</td>
+            <td>{{state}}</td>
+            <td>{{user_id}}</td>
+            <td>
+                <!-- Botón Modificar -->
+                <a href="/cart/edit/{{cart_id}}" class="btn btn-primary btn-sm">Modificar</a>
+
+                <!-- Botón Confirmar compra solo si el carrito está Activo -->
+                {{#if (eq state "activo")}}
+                <form action="/cart/confirm_purchase/{{cart_id}}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-success btn-sm"
+                        onclick="return confirm('¿Confirmar la compra del carrito {{cart_id}}?');">
+                        Confirmar compra
+                    </button>
+                </form>
+                {{/if}}
+
+                <!-- Botón Eliminar -->
+                <form action="/cart/delete/{{cart_id}}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('¿Estás seguro de eliminar el registro {{cart_id}}?');">
+                        Eliminar
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

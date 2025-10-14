@@ -1,6 +1,6 @@
 const sequelize = require('sequelize'); // importa el ORM
 const db = require('../database/conexion_mysql_db'); // importa la bd
-const category =  require('./category'); // importa el modelo contacto
+const category =  require('./category'); // importa el modelo category
 
 // definición del modelo
 const product = db.sequelize_connection.define('product',

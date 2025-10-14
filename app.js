@@ -6,6 +6,7 @@ const session = require('express-session'); // importa express-session para mane
 const passport = require('passport'); // importa Passport para autenticación
 const {create} = require('express-handlebars'); // integra handlebars con express para renderizar HTML con datos del servidor
 const flash = require('connect-flash'); // flash para mostrar mensajes de exito, error o advertencia a los usuarios
+const hbs = require('handlebars'); // importador hbs para el helper
 
 // ------------------ Swagger ------------------
 const swaggerUi = require('swagger-ui-express'); // sirve para montar la UI de swagger
@@ -16,6 +17,7 @@ const home_controller = require('./controllers/home_controller');
 const category_router = require('./routes/category_routes');
 const product_router = require('./routes/product_routes');
 const user_router = require('./routes/user_routes');
+const cart_router = require('./routes/cart_routes');
 
 // ------------------ Configuración Handlebars ------------------
 const handlebars_instance = create({ // crea instancia de handlebars
@@ -26,6 +28,11 @@ const handlebars_instance = create({ // crea instancia de handlebars
 app.engine(".hbs", handlebars_instance.engine); // pide a express que use handlebars para procesar archivos .hbs
 app.set("view engine", ".hbs"); // establece que cada vista a renderizar usará la extension .hbs
 app.set("views", "./views"); // indica a express donde buscar los archivos de vistas
+
+// Registrar helper global
+hbs.registerHelper('eq', function(a, b) {
+    return a === b;
+});
 
 // ------------------ Middlewares ------------------
 app.use(express.urlencoded({ extended: true })); // permite que express lea datos enviados desde formularios con POST
@@ -68,6 +75,7 @@ app.get('/home', home_controller.home); // /home
 app.use('/category', category_router); // /category/create, /category/list
 app.use('/product', product_router); // /product/create, /product/list
 app.use('/user', user_router); // /user/register, /user/login, /user/logout, /user/profile
+app.use('/cart', cart_router); // /cart/create, /cart/list
 
 // ------------------ Base de Datos ------------------
 const {sequelize_connection, ensure_database} = require('./database/conexion_mysql_db');

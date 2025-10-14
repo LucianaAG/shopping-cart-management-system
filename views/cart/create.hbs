@@ -1,0 +1,37 @@
+{{#if errors}}
+<div class="alert alert-danger">
+    <ul>
+        {{#each errors}}
+            <li>{{msg}}</li>
+        {{/each}}
+    </ul>
+</div>
+{{/if}}
+
+<form method="POST" action="/cart/create" id="form_create_cart">
+    <div class="mb-3">
+        <label for="date" class="form-label">Fecha:</label>
+        <input type="date" class="form-control" id="date" name="date" value="{{cart.date}}">
+    </div>
+
+    <div class="mb-3">
+        <label for="state" class="form-label">Estado:</label>
+        <select name="state" id="state">
+            <option value="">Seleccione un estado</option>
+            <option value="activo">activo</option>
+            <option value="confirmado">confirmado</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="user_id" class="form-label">Usuario:</label>
+        <select name="user_id" id="user_id" class="form-select">
+            <option value="">Seleccione un usuario</option>
+            {{#each users}}
+                <option value="{{this.user_id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
