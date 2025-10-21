@@ -18,6 +18,7 @@ const category_router = require('./routes/category_routes');
 const product_router = require('./routes/product_routes');
 const user_router = require('./routes/user_routes');
 const cart_router = require('./routes/cart_routes');
+const cart_items_router = require('./routes/cart_items_routes');
 
 // ------------------ Configuración Handlebars ------------------
 const handlebars_instance = create({ // crea instancia de handlebars
@@ -48,14 +49,14 @@ app.use(session({ // permite mantener sesiones de usuario en el servidor
 }));
 
 // ------------------ Passport ------------------
-// configura la estrategia
+// configura la estrategia de aútenticación al iniciar sesión
 require('./config/passport')(passport);
 
 // incializa Passport y la sesión
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(flash()); // palmacena mensajes temporales
+app.use(flash()); // almacena mensajes temporales
 app.use((req, res, next) => {
     res.locals.user = req.user; // usuario logueado
     res.locals.success_msg = req.flash('success_msg');
@@ -63,10 +64,7 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error'); // errores de Passport
     next();
 });
-
 app.use(express.static(__dirname + '/assets')); // permite acceder a los archivos estáticos
-
-// ------------------ Montar Swagger UI ------------------
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ------------------ Rutas ------------------
@@ -76,6 +74,7 @@ app.use('/category', category_router); // /category/create, /category/list
 app.use('/product', product_router); // /product/create, /product/list
 app.use('/user', user_router); // /user/register, /user/login, /user/logout, /user/profile
 app.use('/cart', cart_router); // /cart/create, /cart/list
+app.use('/cart_items', cart_items_router) // /cart_items/create, /cart_items/list
 
 // ------------------ Base de Datos ------------------
 const {sequelize_connection, ensure_database} = require('./database/conexion_mysql_db');

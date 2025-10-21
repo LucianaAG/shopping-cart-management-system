@@ -1,0 +1,43 @@
+{{#if errors}}
+<div class="alert alert-danger">
+    <ul>
+        {{#each errors}}
+            <li>{{msg}}</li>
+        {{/each}}
+    </ul>
+</div>
+{{/if}}
+
+<form method="POST" action="/cart_items/create" id="form_create_cart_items">
+    <div class="mb-3">
+        <label for="amount" class="form-label">Cantidad:</label>
+        <input type="number" class="form-control" id="amount" name="amount" value="{{cart_item.amount}}">
+    </div>
+
+    <div class="mb-3">
+        <label for="price" class="form-label">Precio:</label>
+        <input type="number" class="form-control" id="price" name="price" value="{{cart_item.price}}">
+    </div>
+
+    <div>
+        <label for="cart_id" class="form-label">Compra:</label>
+        <select name="cart_id" id="cart_id" class="form-select">
+            <option value="">Seleccione una compra</option>
+            {{#each carts}}
+                <option value="{{this.cart_id}}">{{this.cart_id}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <div>
+        <label for="product_id" class="form-label">Productos:</label>
+        <select name="product_id" id="product_id" class="form-select">
+            <option value="">Seleccione un producto</option>
+            {{#each products}}
+                <option value="{{this.product_id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
