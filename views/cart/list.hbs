@@ -56,6 +56,12 @@
                         Eliminar
                     </button>
                 </form>
+
+                <form action="/cart/detail/{{cart_id}}" method="GET" style="display:inline;">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        Ver detalle
+                    </button>
+                </form>
             </td>
         </tr>
         {{/each}}

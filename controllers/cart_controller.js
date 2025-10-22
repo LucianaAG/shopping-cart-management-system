@@ -1,6 +1,7 @@
-const cart = require('../models/cart');
+const { response } = require('express');
 const user = require('../models/user');
 const {validationResult} = require('express-validator');
+const { cart, cart_items, product } = require('../models/associations');
 
 // ------------------ Controlador de renderizado ------------------
 module.exports.render_cart_form = async (request, response) => {
@@ -158,6 +159,45 @@ module.exports.modify_status = async (request, response) => {
 
         request.flash('error_msg', 'Ocurrió un error al confirmar la compra');
         return response.redirect('/cart/list');
+    }
+};
+
+// ------------------ Controlador para ver detalle ------------------
+module.exports.see_cart_detail = async (request, response) => {
+        try {
+            const cart_id = request.params.cart_id;
+
+            // muestra todos los cart_items donde cart_id == al cart_id extraido de los params de la request
+            const cart_data = await cart.findByPk(cart_id, { // busca en la bd el car con el id especificado
+                include: [ // define que el obj cart_data incluirá los datos de cart_items y los datos del user asociados a cart
+                    {
+                        model: cart_items,
+                        as: 'items',
+                        include: [
+                            {
+                                model: product,
+                                as: 'product_relation'
+                            }
+                        ]
+                    },
+                    {
+                        model: user,
+                        as: 'user'
+                    }
+                ]
+        });
+
+        if (!cart_data) {
+            request.flash('error_msg', 'No se encontró el carrito especificado');
+            return response.redirect('/cart/list');
+        }
+
+        response.render('cart/detail', { cart: cart_data.toJSON() });
+
+    } catch (error) {
+        console.error('Error al obtener detalle del carrito:', error.message);
+        request.flash('error_msg', 'Ocurrió un error al cargar el detalle del carrito');
+        response.redirect('/cart/list');
     }
 };
 

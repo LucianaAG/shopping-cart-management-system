@@ -7,6 +7,7 @@ const passport = require('passport'); // importa Passport para autenticación
 const {create} = require('express-handlebars'); // integra handlebars con express para renderizar HTML con datos del servidor
 const flash = require('connect-flash'); // flash para mostrar mensajes de exito, error o advertencia a los usuarios
 const hbs = require('handlebars'); // importador hbs para el helper
+const { cart, cart_items, product, user } = require('./models/associations');
 
 // ------------------ Swagger ------------------
 const swaggerUi = require('swagger-ui-express'); // sirve para montar la UI de swagger

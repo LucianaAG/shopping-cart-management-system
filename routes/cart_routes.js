@@ -25,4 +25,7 @@ router.post('/confirm_purchase/:cart_id', cart_controller.modify_status);
 // ------------------ Ruta de eliminación ------------------
 router.post('/delete/:cart_id', cart_controller.delete_cart);
 
+// ------------------ Ruta de eliminación ------------------
+router.get('/detail/:cart_id', cart_controller.see_cart_detail);
+
 module.exports = router;
