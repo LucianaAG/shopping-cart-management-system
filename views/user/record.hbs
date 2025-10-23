@@ -1,0 +1,27 @@
+<h2>Detalle de carrito del usuario#{{user.user_id}}</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Estado</th>
+      <th>Usuario</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each carts}}
+    <tr>
+        <td>{{this.date}}</td>
+        <td>{{this.state}}</td>
+        <td>{{this.user_id}}</td>
+        <td>
+            <form action="/user/detail/{{this.cart_id}}" method="GET">
+                <button type="submit" class="btn btn-success btn-sm">Ver detalle</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<a href="/user/list" class="btn btn-secondary">Volver</a>

@@ -1,0 +1,46 @@
+{{!-- Mensajes flash --}}
+{{#if success_msg}}
+    <div class="alert alert-success" role="alert">
+        <ul>
+            {{#each success_msg}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
+{{#if error_msg}}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            {{#each error_msg}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each users}}
+        <tr>
+            <td>{{this.user_id}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.email}}</td>
+            <td>
+                <form action="/user/record" method="GET" style="display:inline;">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        Ver compras
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

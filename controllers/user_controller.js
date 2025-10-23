@@ -1,5 +1,8 @@
 const { validationResult } = require('express-validator');
 const user = require('../models/user');
+const cart = require('../models/cart');
+const cart_items = require('../models/cart_items');
+const product = require('../models/product');
 const passport = require('passport');
 
 
@@ -124,5 +127,84 @@ module.exports.edit_profile = async (request, response) => {
         console.error('Error al actualizar el perfil:', error.message);
         request.flash('error_msg', 'Ocurrió un error al actualizar el perfil');
         response.redirect('/home');
+    }
+};
+
+// ------------------ Controlador para listar todos los usuarios ------------------
+
+module.exports.list_all_users = async (request, response) => {
+    try {
+        const users_data = await user.findAll();
+
+        response.render('user/list', {
+            users: users_data.map(u => u.toJSON())
+        });
+
+    } catch (error) {
+        console.error('Error al listar usuarios:', error.message);
+        request.flash('error_msg', 'Ocurrió un error al cargar los usuarios');
+        response.redirect('/home');
+    }
+};
+
+// ------------------ Controlador para ver historial de carritos del usuario logueado ------------------
+
+module.exports.user_cart_history = async (request, response) => {
+    try {
+        const user_id = request.user.user_id;
+
+        const carts_data = await cart.findAll({
+            where: { user_id },
+            order: [['date', 'DESC']]
+        });
+
+        response.render('user/record', {
+            carts: carts_data.map(c => c.toJSON())
+        });
+
+    } catch (error) {
+        console.error('Error al cargar historial de carritos:', error.message);
+        request.flash('error_msg', 'Ocurrió un error al cargar el historial de carritos');
+        response.redirect('/home');
+    }
+};
+
+// ------------------ Controlador para ver detalle de un carrito del usuario logueado ------------------
+module.exports.user_cart_detail = async (request, response) => {
+    try {
+        const cart_id = request.params.cart_id;
+        const user_id = request.user.user_id;
+
+        const cart_data = await cart.findOne({
+            where: { cart_id, user_id }, // filtramos por usuario logueado
+            include: [
+                {
+                    model: cart_items,
+                    as: 'items',
+                    include: [
+                        {
+                            model: product,
+                            as: 'product_relation'
+                        }
+                    ]
+                },
+                {
+                    model: user,
+                    as: 'user_relation'
+                }
+            ]
+        });
+
+        if (!cart_data) {
+            request.flash('error_msg', 'No se encontró el carrito especificado');
+            return response.redirect('/user/record');
+        }
+
+        response.render('user/detail', { cart: cart_data.toJSON() });
+
+    } catch (error) {
+        console.error('Error al obtener detalle del carrito:', error.message);
+        request.flash('error_msg', 'Ocurrió un error al cargar el detalle del carrito');
+        response.redirect('/user/record');
     }
 };

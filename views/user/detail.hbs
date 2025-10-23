@@ -1,0 +1,21 @@
+<h3>Productos</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Precio unitario</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each cart.items}}
+    <tr>
+      <td>{{this.product_relation.name}}</td>
+      <td>{{this.amount}}</td>
+      <td>${{this.price}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<a href="/user/record" class="btn btn-secondary">Volver</a>

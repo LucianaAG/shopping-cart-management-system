@@ -19,4 +19,9 @@ router.get('/logout', ensure_authenticated, user_controller.logout_user);
 router.get('/profile', ensure_authenticated, user_controller.render_profile);
 router.post('/profile', ensure_authenticated, user_controller.edit_profile);
 
+// ------------------ Rutas de listado ------------------
+router.get('/list', ensure_authenticated, user_controller.list_all_users);
+router.get('/record', ensure_authenticated, user_controller.user_cart_history);
+router.get('/detail/:cart_id', ensure_authenticated, user_controller.user_cart_detail);
+
 module.exports = router;
