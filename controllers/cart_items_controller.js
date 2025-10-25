@@ -2,6 +2,7 @@ const cart_items = require('../models/cart_items');
 const product =  require('../models/product');
 const cart = require('../models/cart');
 const {validationResult} = require('express-validator');
+const { raw } = require('mysql2');
 
 
 
@@ -42,22 +43,31 @@ module.exports.render_cart_items_form = async (request, response) => {
 // ------------------ Controlador de registro ------------------
 module.exports.create_cart_items =  async (request, response) => {
     const { amount, price, cart_id, product_id } = request.body;
+    const product_data = await product.findByPk(product_id, {raw: true});
 
-    try {
-        await cart_items.create({
-            amount,
-            price,
-            cart_id: cart_id ? Number.parseInt(cart_id) : null,
-            product_id: product_id ? Number.parseInt(product_id) : null
-        });
-
-        request.flash('success_msg', 'El detalle se registró con exito');
+    if (amount > product_data.stock) {
+        request.flash('error_msg', 'La cantidad excede el stock disponible')
         response.redirect('/cart_items/create');
+    }else{
+        try {
+            await cart_items.create({
+                amount,
+                price,
+                cart_id: cart_id ? Number.parseInt(cart_id) : null,
+                product_id: product_id ? Number.parseInt(product_id) : null
+            });
 
-    } catch (error) {
-        console.error('Error al registrar el detalle', error);
-        request.flash('error_msg', 'Ocurrió un error al registrar el detalle');
-        response.redirect('/cart_items/create');
+            const update_product_data = {stock: product_data.stock - amount};
+            await product.update(update_product_data, {where: {product_id}});
+
+            request.flash('success_msg', 'El detalle se registró con exito');
+            response.redirect('/cart_items/create');
+
+        } catch (error) {
+            console.error('Error al registrar el detalle', error);
+            request.flash('error_msg', 'Ocurrió un error al registrar el detalle');
+            response.redirect('/cart_items/create');
+        }
     }
 };
 
@@ -170,8 +180,12 @@ module.exports.edit_cart_items = async (request, response) => {
 
 module.exports.delete_cart_items = async (request, response) => {
     try {
-        const cart_item_id = request.params.cart_item_id;
-        await cart_items.destroy({where: {cart_item_id}});
+        const cart_item_data = await cart_items.findByPk(request.params.cart_item_id, {raw: true});
+        const product_data = await product.findByPk(cart_item_data.product_id, {raw: true})
+        const update_product_data = {stock: product_data.stock + cart_item_data.amount};
+
+        await product.update(update_product_data, {where: {product_id: product_data.product_id}})
+        await cart_items.destroy({where: {cart_item_id: cart_item_data.cart_item_id}});
         request.flash('success_msg', 'El registro se ha eliminado con exito');
         response.redirect('/cart_items/list');
     } catch (error) {

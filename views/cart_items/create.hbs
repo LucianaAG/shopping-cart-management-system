@@ -16,7 +16,7 @@
 
     <div class="mb-3">
         <label for="price" class="form-label">Precio:</label>
-        <input type="number" class="form-control" id="price" name="price" value="{{cart_item.price}}">
+        <input type="number" class="form-control" id="price" name="price" value="{{cart_item.price}}" readonly>
     </div>
 
     <div>
@@ -34,10 +34,12 @@
         <select name="product_id" id="product_id" class="form-select">
             <option value="">Seleccione un producto</option>
             {{#each products}}
-                <option value="{{this.product_id}}">{{this.name}}</option>
+                <option value="{{this.product_id}}" data-price="{{this.price}}">{{this.name}}</option>
             {{/each}}
         </select>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<script src="/js/cart_items_calculate_price.js"></script>
